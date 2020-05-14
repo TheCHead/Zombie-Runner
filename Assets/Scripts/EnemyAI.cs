@@ -26,4 +26,11 @@ public class EnemyAI : MonoBehaviour
         }
 
     }
+
+    void OnDrawGizmosSelected()
+    {
+        // Display the chase radius when selected
+        Gizmos.color = new Color(1, 1, 0, 0.75F);
+        Gizmos.DrawSphere(transform.position, chaseRange);
+    }
 }
