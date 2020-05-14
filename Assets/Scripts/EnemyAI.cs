@@ -10,6 +10,8 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] float distanceToTarget = Mathf.Infinity;
     NavMeshAgent navMeshAgent;
 
+    bool isProvoked = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,17 +22,44 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
         distanceToTarget = Vector3.Distance(target.position, transform.position);
-        if (distanceToTarget <= chaseRange)
+        if (isProvoked)
         {
-            navMeshAgent.SetDestination(target.position);
+            EngageEnemy();
+        }
+        else if (distanceToTarget <= chaseRange)
+        {
+            isProvoked = true;
+        }
+    }
+
+    private void EngageEnemy()
+    {
+        if (distanceToTarget >= navMeshAgent.stoppingDistance)
+        {
+            ChaseTarget();
         }
 
+        else
+        {
+            AttackTarget();
+        }
+
+    }
+
+    private void ChaseTarget()
+    {
+        navMeshAgent.SetDestination(target.position);
+    }
+
+    private void AttackTarget()
+    {
+        Debug.Log("Enemy Attacking");
     }
 
     void OnDrawGizmosSelected()
     {
         // Display the chase radius when selected
-        Gizmos.color = new Color(1, 1, 0, 0.75F);
-        Gizmos.DrawSphere(transform.position, chaseRange);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, chaseRange);
     }
 }
