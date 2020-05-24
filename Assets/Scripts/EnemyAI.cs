@@ -8,6 +8,7 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] Transform target;
     [SerializeField] float chaseRange = 5;
     [SerializeField] float distanceToTarget = Mathf.Infinity;
+    [SerializeField] float turnSpeed = 5f;
     NavMeshAgent navMeshAgent;
 
     bool isProvoked = false;
@@ -16,6 +17,7 @@ public class EnemyAI : MonoBehaviour
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+        target = FindObjectOfType<PlayerHealth>().transform;
     }
 
     // Update is called once per frame
@@ -26,14 +28,18 @@ public class EnemyAI : MonoBehaviour
         {
             EngageEnemy();
         }
+
         else if (distanceToTarget <= chaseRange)
         {
             isProvoked = true;
         }
+
     }
 
     private void EngageEnemy()
     {
+        FaceTarget();
+
         if (distanceToTarget >= navMeshAgent.stoppingDistance)
         {
             ChaseTarget();
@@ -48,12 +54,14 @@ public class EnemyAI : MonoBehaviour
 
     private void ChaseTarget()
     {
+        GetComponent<Animator>().SetBool("attack", false);
+        GetComponent<Animator>().SetTrigger("move");
         navMeshAgent.SetDestination(target.position);
     }
 
     private void AttackTarget()
     {
-        Debug.Log("Enemy Attacking");
+        GetComponent<Animator>().SetBool("attack", true);
     }
 
     void OnDrawGizmosSelected()
@@ -61,5 +69,17 @@ public class EnemyAI : MonoBehaviour
         // Display the chase radius when selected
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, chaseRange);
+    }
+
+    private void FaceTarget()
+    {
+        Vector3 direction = (target.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, turnSpeed * Time.deltaTime);
+    }
+
+    public void OnDamageTaken()
+    {
+        isProvoked = true;
     }
 }

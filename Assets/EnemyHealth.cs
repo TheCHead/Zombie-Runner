@@ -10,6 +10,8 @@ public class EnemyHealth : MonoBehaviour
     {
         hitPoints -= damage;
 
+        GetComponent<EnemyAI>().OnDamageTaken();
+
         if (hitPoints <= 0)
         {
             EnemyDeathSequence();
