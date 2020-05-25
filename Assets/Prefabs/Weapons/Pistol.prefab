@@ -336,10 +336,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FPSCamera: {fileID: 0}
   shootRange: 100
-  damage: 10
+  damage: 15
   muzzleFlash: {fileID: 4981036839808690170}
   hitSparks: {fileID: 7134801602908545152}
   ammoSlot: {fileID: 0}
+  cooldownTime: 0.2
 --- !u!114 &6523717122198214410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -775,12 +776,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 05c16c423501d604fb2e0d725917b5d2, type: 2}
+      objectReference: {fileID: 2100000, guid: 9f3080141f1f64197825663e067f94f8, type: 2}
     - target: {fileID: 113037269559750531, guid: 4a60d8477aafac045a1f56d3a60c7813,
         type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: 05c16c423501d604fb2e0d725917b5d2, type: 2}
+      objectReference: {fileID: 2100000, guid: 9f3080141f1f64197825663e067f94f8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a60d8477aafac045a1f56d3a60c7813, type: 3}
 --- !u!4 &6446230138277691573 stripped

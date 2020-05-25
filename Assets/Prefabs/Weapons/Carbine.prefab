@@ -340,6 +340,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 4981036839808690170}
   hitSparks: {fileID: 7134801602908545152}
   ammoSlot: {fileID: 0}
+  cooldownTime: 0.1
 --- !u!114 &6523717122198214410
 MonoBehaviour:
   m_ObjectHideFlags: 0
