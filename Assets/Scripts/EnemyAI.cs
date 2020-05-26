@@ -23,6 +23,8 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GetComponent<EnemyHealth>().IsDead()) return;
+
         distanceToTarget = Vector3.Distance(target.position, transform.position);
         if (isProvoked)
         {
