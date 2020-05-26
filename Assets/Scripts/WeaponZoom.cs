@@ -21,6 +21,11 @@ public class WeaponZoom : MonoBehaviour
         fpsController = FindObjectOfType<RigidbodyFirstPersonController>();
     }
 
+    private void OnDisable()
+    {
+        WeaponZoomOut();
+    }
+
 
     private void Update()
     {
