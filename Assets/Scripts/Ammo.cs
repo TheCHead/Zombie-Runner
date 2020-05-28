@@ -40,5 +40,6 @@ public class Ammo : MonoBehaviour
     public void PickUpAmmo(AmmoType ammoType, int addedAmmoAmount)
     {
         GetAmmoSlot(ammoType).ammoAmount += addedAmmoAmount;
+        FindObjectOfType<Weapon>().UpdateAmmoDisplay();
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Weapon : MonoBehaviour
 {
@@ -14,11 +15,14 @@ public class Weapon : MonoBehaviour
     [SerializeField] AmmoType ammoType;
     [SerializeField] float cooldownTime = 0.5f;
 
+    [SerializeField] TextMeshProUGUI ammoDisplay;
+
     bool isAbleToShoot = true;
 
     private void OnEnable()
     {
         isAbleToShoot = true;
+        UpdateAmmoDisplay();
     }
 
     // Update is called once per frame
@@ -35,6 +39,7 @@ public class Weapon : MonoBehaviour
         PlayMuzzleFlash();
         ProcessRaycast();
         ammoSlot.DecreaseAmmoAmount(ammoType);
+        UpdateAmmoDisplay();
         isAbleToShoot = false;
         yield return new WaitForSeconds(cooldownTime);
         isAbleToShoot = true;
@@ -72,5 +77,10 @@ public class Weapon : MonoBehaviour
     {
         GameObject hitEffect = Instantiate(hitSparks, hit.point, Quaternion.LookRotation(hit.normal));
         Destroy(hitEffect, 0.2f);
+    }
+
+    public void UpdateAmmoDisplay()
+    {
+        ammoDisplay.text = ammoSlot.GetCurrentAmmo(ammoType).ToString();
     }
 }
